@@ -17,40 +17,36 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-    String firstName = "";
-    String lastName = "";
-    String phoneNumber = "";
+  String firstName = "";
+  String lastName = "";
+  String phoneNumber = "";
   String emailAddress = "";
   String password = "";
- bool _showPassword = false;
+  bool _showPassword = false;
   @override
   Widget build(BuildContext context) {
-     SignupBloc bloc = context.watch<SignupBloc>();
+    SignupBloc bloc = context.watch<SignupBloc>();
     SignupState state = bloc.state;
 
-    switch(state.signupStatus){
+    switch (state.signupStatus) {
       case SignupStatus.Initial:
         break;
       case SignupStatus.Processing:
-      // TODO: Handle this case.
+        // TODO: Handle this case.
         break;
       case SignupStatus.Successful:
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return CustomButtomAppbar();
-              },
-              )
-          );
+          Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (context) {
+              return CustomButtomAppbar();
+            },
+          ));
           bloc.reset;
         });
         break;
       case SignupStatus.Error:
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-          ScaffoldMessenger
-              .of(context)
+          ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text("An error occured")));
         });
         break;
@@ -137,9 +133,32 @@ class _SignupScreenState extends State<SignupScreen> {
             smallerTextWidget(
               text: "Phone Number",
             ),
-            formFieldWidget(obscureText: false, saveTxt: (saveTxt){}, onChanged: (value){
-              phoneNumber = value;
-            }, hintText: "Add Phone Number",),
+            formFieldWidget(
+              obscureText: false,
+              saveTxt: (saveTxt) {},
+              onChanged: (value) {
+                phoneNumber = value;
+              },
+              // prefixIcon: Padding(
+              //   padding: const EdgeInsets.only(left: 8.0),
+                // child: Row(
+                //   children: [
+                //     Image.asset("assets/images/flag.png"),
+                //     SizedBox(
+                //       width: 5,
+                //     ),
+                //     InkWell(
+                //         child: Image.asset(
+                //       "assets/images/drop.png",
+                //       height: 8,
+                //     ), 
+                //     onTap: (){},
+                //     )
+                //   ],
+                // ),
+              // ),
+              hintText: "Add Phone Number",
+            ),
             // IntlPhoneField(
             //   // dropdownIcon: Icon(Icons.arrow_drop_down_outlined),
             //   onChanged: (PhoneNumber phoneNumber) {
@@ -166,13 +185,10 @@ class _SignupScreenState extends State<SignupScreen> {
             //         borderSide:
             //             const BorderSide(color: Colors.grey, width: 1.5),
             //       ),
-                  
+
             //       hintText: "Add phone number"),
             // ),
-           
-           
-           
-           
+
             SizedBox(
               height: 10,
             ),
@@ -236,7 +252,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: state.signupStatus == SignupStatus.Processing ? null : () {
+                  onPressed: state.signupStatus == SignupStatus.Processing
+                      ? null
+                      : () {
                           if (_isUserInputValid()) {
                             bloc.registerUser(
                                 firstName: firstName,
@@ -269,9 +287,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: Text(
                         "Sign in",
                         style: TextStyle(color: AppColors.faintGreen),
-                      )
-                      
-                      )
+                      ))
                 ],
               ),
             )
@@ -280,9 +296,12 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
-   bool _isUserInputValid() {
+
+  bool _isUserInputValid() {
     String errorMessage = "";
-    if (firstName.trim().isEmpty || lastName.trim().isEmpty ||phoneNumber.trim().isEmpty) {
+    if (firstName.trim().isEmpty ||
+        lastName.trim().isEmpty ||
+        phoneNumber.trim().isEmpty) {
       errorMessage = "Fullname cannot be empty";
     } else if (emailAddress.trim().isEmpty) {
       errorMessage = "Email cannot be empty";
@@ -298,4 +317,3 @@ class _SignupScreenState extends State<SignupScreen> {
     return true;
   }
 }
-
