@@ -65,9 +65,8 @@ class LoginBloc extends Cubit<LoginState>{
   void resetStatusToInital() async{
     emit(state.copyWith(loginStatus: LoginStatus.Initial));
   }
-  // void logout() async{
-  //    await FirebaseAuth.instance.signOut();
-  // }
+  // @
+  
   void login(String emailAddress, String password) async{
      emit(state.copyWith(
       loginStatus: LoginStatus.Processing
@@ -89,10 +88,7 @@ class LoginBloc extends Cubit<LoginState>{
     );
     emit(newState);
   }
-  // bool showPassword(bool showPassword){
-  // final val =  emit(state.copyWith(showPassword: !showPassword));
-  
-  // }
+ 
   void setPassword(String password){
     print("the passs is $password");
     emit(state.copyWith(password: password));

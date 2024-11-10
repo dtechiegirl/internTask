@@ -21,7 +21,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool isChecked = false;
+  bool isChecked = true;
+  bool _showPassword = true;
   @override
   Widget build(BuildContext context) {
     var bloc = context.watch<LoginBloc>();
@@ -133,15 +134,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 50,
                     child: formFieldWidget(
                       controller: _passwordController,
-                      obscureText: true,
+                      obscureText: _showPassword,
                       saveTxt: (txt) {},
                       hintText: "Enter Password",
-                      suffixIcon: GestureDetector(
+                      suffixIcon: InkWell(
                         child: Image.asset(
                           "assets/images/frame.png",
                           height: 30,
                         ),
-                        // onTap:  ,
+                        onTap: (){
+                          _showPassword = !_showPassword;
+                        },
                       ),
                       onChanged: (String value) {
                         print("THE VALUE IS $value");

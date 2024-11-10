@@ -22,7 +22,7 @@ class _SignupScreenState extends State<SignupScreen> {
     String phoneNumber = "";
   String emailAddress = "";
   String password = "";
-
+ bool _showPassword = false;
   @override
   Widget build(BuildContext context) {
      SignupBloc bloc = context.watch<SignupBloc>();
@@ -264,7 +264,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Text("Already have an account?"),
                   TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed("loginscreen");
+                        Navigator.of(context).pushNamed("/");
                       },
                       child: Text(
                         "Sign in",
